@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto {
 
-    private String username;
+    private String userName;
     private String firstName;
     private String lastName;
     private String email;
     private Integer age;
     private Integer accessLevel;
-    private Role roles;
+    private Role role;
 }

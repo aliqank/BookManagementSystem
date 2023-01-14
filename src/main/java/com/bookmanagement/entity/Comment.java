@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "coments")
-public class Coment {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +22,7 @@ public class Coment {
 
     private String content;
 
+    @Builder.Default()
     private boolean favorite = false;
 
     @ManyToOne(cascade = CascadeType.MERGE)

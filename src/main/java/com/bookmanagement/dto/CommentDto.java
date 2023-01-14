@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class CommentDto {
 
     private String id;
-    private String postDate;
     private String authorName;
     private String content;
     private boolean favorite;
