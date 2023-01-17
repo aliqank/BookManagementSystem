@@ -14,7 +14,7 @@ import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.notFound;
 
 @RestController
-@RequestMapping("/api/v1/genres")
+@RequestMapping("/api/v1/orders")
 @AllArgsConstructor
 public class OrderController {
 
