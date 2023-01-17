@@ -81,3 +81,37 @@ CREATE TABLE IF NOT EXISTS book_orders
     order_id BIGINT references orders (id),
     primary key (book_id, order_id)
 );
+
+INSERT INTO GENRES (id, genre_name) VALUES(1, 'Poetry');
+INSERT INTO GENRES (id, genre_name) VALUES(2, 'Fiction');
+INSERT INTO GENRES (id, genre_name) VALUES(3, 'Nonfiction');
+INSERT INTO GENRES (id, genre_name) VALUES(4, 'Drama');
+INSERT INTO GENRES (id, genre_name) VALUES(5, 'Detective');
+
+INSERT INTO AUTHORS (id, author_name) VALUES(1, 'Lionel Messi');
+INSERT INTO AUTHORS (id, author_name) VALUES(2, 'Cristiano Ronaldo');
+INSERT INTO AUTHORS (id, author_name) VALUES(3, 'Neymar Junior');
+INSERT INTO AUTHORS (id, author_name) VALUES(4, 'Karim Benzema');
+INSERT INTO AUTHORS (id, author_name) VALUES(5, 'Luis Suarez');
+
+INSERT INTO BOOKS (id, author_id, book_name, rars, access_level) VALUES(1, 1, 'Introduction to Java', 12, 1);
+INSERT INTO BOOKS (id, author_id, book_name, rars, access_level) VALUES(2, 1, 'Introduction to C++', 12, 1);
+INSERT INTO BOOKS (id, author_id, book_name, rars, access_level) VALUES(3, 1, 'Introduction to Spring', 12, 1);
+INSERT INTO BOOKS (id, author_id, book_name, rars, access_level) VALUES(4, 1, 'Introduction to Hibernate', 12, 1);
+INSERT INTO BOOKS (id, author_id, book_name, rars, access_level) VALUES(5, 2, 'Introduction to MapStruct', 12, 1);
+INSERT INTO BOOKS (id, author_id, book_name, rars, access_level) VALUES(6, 2, 'Introduction to Python', 12, 1);
+INSERT INTO BOOKS (id, author_id, book_name, rars, access_level) VALUES(7, 3, 'Introduction to Php', 12, 1);
+INSERT INTO BOOKS (id, author_id, book_name, rars, access_level) VALUES(8, 3, 'Introduction to JS', 12, 1);
+INSERT INTO BOOKS (id, author_id, book_name, rars, access_level) VALUES(9, 4, 'Introduction to Scala', 12, 1);
+INSERT INTO BOOKS (id, author_id, book_name, rars, access_level) VALUES(10, 5, 'Introduction to Swift', 12, 1);
+
+INSERT INTO BOOK_GENRES (book_id, genre_id) VALUES(1, 1);
+INSERT INTO BOOK_GENRES (book_id, genre_id) VALUES(2, 1);
+INSERT INTO BOOK_GENRES (book_id, genre_id) VALUES(3, 1);
+INSERT INTO BOOK_GENRES (book_id, genre_id) VALUES(4, 2);
+INSERT INTO BOOK_GENRES (book_id, genre_id) VALUES(5, 2);
+INSERT INTO BOOK_GENRES (book_id, genre_id) VALUES(6, 3);
+INSERT INTO BOOK_GENRES (book_id, genre_id) VALUES(7, 3);
+INSERT INTO BOOK_GENRES (book_id, genre_id) VALUES(8, 4);
+INSERT INTO BOOK_GENRES (book_id, genre_id) VALUES(9, 4);
+INSERT INTO BOOK_GENRES (book_id, genre_id) VALUES(10, 5);

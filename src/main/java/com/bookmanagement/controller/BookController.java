@@ -2,13 +2,18 @@ package com.bookmanagement.controller;
 
 import com.bookmanagement.dto.BookCreateDto;
 import com.bookmanagement.dto.BookDto;
+import com.bookmanagement.dto.filter.BookFilter;
+import com.bookmanagement.dto.response.PageResponse;
 import com.bookmanagement.service.BookService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collection;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.noContent;
@@ -22,8 +27,9 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping()
-    public List<BookDto> findAll() {
-       return bookService.findAll();
+    public PageResponse<BookDto> findAll(BookFilter filter, Pageable pageable) {
+        Page<BookDto> page = bookService.findAll(filter, pageable);
+        return PageResponse.of(page);
     }
 
     @GetMapping("/{id}")
