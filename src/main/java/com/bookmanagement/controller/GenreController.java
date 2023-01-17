@@ -5,6 +5,7 @@ import com.bookmanagement.service.GenreService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -31,11 +32,13 @@ public class GenreController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping()
     public GenreDto create(@RequestBody GenreDto genreDto) {
         return genreService.create(genreDto);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     public GenreDto update(@PathVariable("id") Long id,
                               @RequestBody GenreDto genreDto) {
@@ -43,6 +46,7 @@ public class GenreController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         return genreService.delete(id)

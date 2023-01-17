@@ -5,6 +5,7 @@ import com.bookmanagement.service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -25,6 +26,7 @@ public class CommentController {
         return commentService.findCommentsByBookId(bookId);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @GetMapping("favorite/book/{bookId}")
     public List<CommentDto> findFavoriteCommentsByBookId(@PathVariable("bookId") Long bookId) {
         return commentService.findFavoriteCommentsByBookId(bookId);
@@ -35,18 +37,19 @@ public class CommentController {
         return commentService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @PostMapping("/{bookId}")
     public CommentDto create(@PathVariable("bookId") Long id,@RequestBody CommentDto commentDto) {
         return commentService.create(id,commentDto);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @PutMapping("/{id}")
     public CommentDto update(@PathVariable("id") Long id,@RequestBody CommentDto commentDto) {
         return commentService.update(id,commentDto)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         return commentService.delete(id)
