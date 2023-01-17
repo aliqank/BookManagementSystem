@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public List<UserDto> findAll(){
         return userRepository.findAll().stream()
@@ -38,7 +40,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public UserDto create(UserDto userDto){
+    public UserDto create(UserDto userDto) {
         return Optional.of(userDto)
                 .map(userMapper::toEntity)
                 .map(userRepository::save)
@@ -87,5 +89,8 @@ public class UserService implements UserDetailsService {
                 .filter(authentication -> !(authentication instanceof AnonymousAuthenticationToken))
                 .map(Authentication::getName);
     }
+
+
+
 
 }
