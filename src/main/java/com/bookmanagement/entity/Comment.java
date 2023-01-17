@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "coments")
-public class Comment {
+public class Comment{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

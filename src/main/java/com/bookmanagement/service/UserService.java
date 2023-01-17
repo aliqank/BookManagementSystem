@@ -1,7 +1,10 @@
 package com.bookmanagement.service;
 
+import com.bookmanagement.dto.UserCreateDto;
 import com.bookmanagement.dto.UserDto;
+import com.bookmanagement.entity.Role;
 import com.bookmanagement.entity.User;
+import com.bookmanagement.mapper.UserCreateMapper;
 import com.bookmanagement.mapper.UserMapper;
 import com.bookmanagement.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +30,7 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final UserCreateMapper userCreateMapper;
     private final PasswordEncoder passwordEncoder;
 
     public List<UserDto> findAll(){
@@ -40,13 +45,21 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public UserDto create(UserDto userDto) {
-        return Optional.of(userDto)
-                .map(userMapper::toEntity)
-                .map(userRepository::save)
+    public UserDto create(UserCreateDto userCreateDto) {
+        return Optional.of(userCreateDto)
+                .map(userCreateDto1 -> {
+                    Optional.of(userCreateDto.getPassword())
+                            .filter(StringUtils::hasText)
+                            .map(passwordEncoder::encode)
+                            .ifPresent(userCreateDto1::setPassword);
+                    return userCreateMapper.toEntity(userCreateDto1);
+                })
+                .map(entity -> {
+                    entity.setRole(Role.USER);
+                    return userRepository.save(entity);
+                })
                 .map(userMapper::toDto)
                 .orElseThrow();
-
     }
 
     @Transactional

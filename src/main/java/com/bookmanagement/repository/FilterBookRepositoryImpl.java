@@ -2,7 +2,6 @@ package com.bookmanagement.repository;
 
 import com.bookmanagement.dto.filter.BookFilter;
 import com.bookmanagement.entity.Book;
-import com.bookmanagement.entity.QBook;
 import com.bookmanagement.qerydsl.QPredicates;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +19,7 @@ public class FilterBookRepositoryImpl implements FilterBookRepository {
     @Override
     public List<Book> findAllByFilter(BookFilter filter) {
         var predicates = QPredicates.builder()
+                .add(filter.bookName(), book.bookName::containsIgnoreCase)
                 .add(filter.authorName(),book.author.authorName::containsIgnoreCase)
                 .add(filter.genreName(), book.genres.any().genreName::containsIgnoreCase)
                 .build();

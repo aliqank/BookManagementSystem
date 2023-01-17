@@ -1,6 +1,5 @@
 package com.bookmanagement.dto;
 
-import com.bookmanagement.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserCreateDto {
 
     private String username;
     private String firstname;
@@ -16,5 +15,5 @@ public class UserDto {
     private String email;
     private Integer age;
     private Integer accessLevel;
-    private Role role;
+    private String password;
 }

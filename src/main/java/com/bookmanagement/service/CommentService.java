@@ -1,6 +1,7 @@
 package com.bookmanagement.service;
 
 import com.bookmanagement.dto.CommentDto;
+import com.bookmanagement.entity.Book;
 import com.bookmanagement.mapper.CommentMapper;
 import com.bookmanagement.repository.BookRepository;
 import com.bookmanagement.repository.CommentRepository;
@@ -39,18 +40,20 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentDto create(CommentDto commentDto) {
-        return Optional.of(commentDto)
-                .map(commentMapper::toEntity)
+    public CommentDto create(Long bookId,CommentDto commentDto) {
+
+        Optional<Book> book = bookRepository.findById(bookId);
+        return Optional.of(book)
+                .map(entity -> commentMapper.toEntity(commentDto))
                 .map(commentRepository::save)
                 .map(commentMapper::toDto)
                 .orElseThrow();
-
     }
 
     @Transactional
     public Optional<CommentDto> update(Long id, CommentDto commentDto){
         return commentRepository.findById(id)
+                .map(entity ->commentMapper.toEntity(commentDto))
                 .map(commentRepository::saveAndFlush)
                 .map(commentMapper::toDto);
     }

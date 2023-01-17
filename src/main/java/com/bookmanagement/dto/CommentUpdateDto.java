@@ -7,11 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentDto {
+public class CommentUpdateDto {
 
     private Long id;
-    private String authorName;
-    private String content;
-    private boolean favorite;
-    private Long bookId;
+    String content;
 }

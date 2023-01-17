@@ -11,18 +11,28 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
 
-    @Mapping(source = "book", target = "bookId")
+    @Mapping(target = "bookId", source = "book")
     CommentDto toDto(Comment comment);
 
     List<CommentDto> toDtoList(List<Comment> comments);
 
-    @Mapping(target = "book", ignore = true)
+    @Mapping(target = "book", source = "bookId")
     Comment toEntity(CommentDto commentDto);
 
     List<Comment> toEntityList(List<CommentDto> commentDto);
 
-    default String map(Book value) {
-        return value.getId().toString();
+    default Long map(Book value){
+        Book build = Book.builder()
+                .id(value.getId())
+                .build();
+        return build.getId();
+
+    }
+
+    default Book map(Long value){
+        return Book.builder()
+                .id(value)
+                .build();
     }
 
 }

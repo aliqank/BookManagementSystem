@@ -3,12 +3,10 @@ package com.bookmanagement.service;
 import com.bookmanagement.dto.BookCreateDto;
 import com.bookmanagement.dto.BookDto;
 import com.bookmanagement.dto.filter.BookFilter;
-import com.bookmanagement.entity.Genre;
 import com.bookmanagement.mapper.BookCreateMapper;
 import com.bookmanagement.mapper.BookMapper;
 import com.bookmanagement.qerydsl.QPredicates;
 import com.bookmanagement.repository.BookRepository;
-import com.querydsl.core.types.Predicate;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +28,7 @@ public class BookService {
 
     public Page<BookDto> findAll(BookFilter filter, Pageable pageable){
         var predicates = QPredicates.builder()
+                .add(filter.bookName(), book.bookName::containsIgnoreCase)
                 .add(filter.authorName(), book.author.authorName::containsIgnoreCase)
                 .add(filter.genreName(), book.genres.any().genreName::containsIgnoreCase)
                 .build();

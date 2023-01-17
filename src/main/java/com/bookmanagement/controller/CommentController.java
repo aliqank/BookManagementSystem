@@ -36,15 +36,14 @@ public class CommentController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping()
-    public CommentDto create(@RequestBody CommentDto commentDto) {
-        return commentService.create(commentDto);
+    @PostMapping("/{bookId}")
+    public CommentDto create(@PathVariable("bookId") Long id,@RequestBody CommentDto commentDto) {
+        return commentService.create(id,commentDto);
     }
 
     @PutMapping("/{id}")
-    public CommentDto update(@PathVariable("id") Long id,
-                              @RequestBody CommentDto commentDto) {
-        return commentService.update(id, commentDto)
+    public CommentDto update(@PathVariable("id") Long id,@RequestBody CommentDto commentDto) {
+        return commentService.update(id,commentDto)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 

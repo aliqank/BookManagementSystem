@@ -43,6 +43,7 @@ public class GenreService {
     @Transactional
     public Optional<GenreDto> update(Long id, GenreDto genreDto){
         return genreRepository.findById(id)
+                .map(entity ->genreMapper.toEntity(genreDto))
                 .map(genreRepository::saveAndFlush)
                 .map(genreMapper::toDto);
     }

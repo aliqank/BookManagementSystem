@@ -1,4 +1,4 @@
 package com.bookmanagement.dto.filter;
 
-public record BookFilter(String authorName,String genreName) {
+public record BookFilter(String authorName,String genreName,String bookName) {
 }
